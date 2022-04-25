@@ -3,14 +3,15 @@ import createCategoryItemTemplate from "../templates/CategoryItemTemplate.js";
 import RenderTodo from "./render.js";
 import createSelectTemplate from "../templates/SelectTemplate.js";
 
-export let todo = [
+let todo = [
     {name:"Shopping List",created: 1650736070923,category:0, content:"Tomatoes,bread",edit:false,archive:true},
     {name:"The theory of evolute",created: 1650736070924,category:2, content:" I’m gonna have a dentist appointment on the 3/5/2021, I moved it from 5/5/2021” ",edit:false,archive:false},
     {name:"New Feature",created: 1650736070925,category:1, content:" I’m gonna have a dentist appointment on the 3/5/2021, I moved it from 5/5/2021” ",edit:false,archive:true},
     {name:"William Gaddis",created: 1650736070926,category:0, content:"Power doesn't gonna have a dentist appointment on the 3/5/2021,",edit:false,archive:false},
     {name:"Books",created: 1650736070927,category:2, content:"The Learn Startup",edit:false,archive:false},
 ];
-export let renderedTodo = [];
+
+let renderedTodo = [];
 export let categoriesTodo =[
     {img:'<i class="fa fa-shopping-cart" aria-hidden="true"></i>',name:"Task"},
     {img:'<i class="fa fa-bullhorn" aria-hidden="true"></i>',name:"Random Thought"},
