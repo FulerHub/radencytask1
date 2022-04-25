@@ -28,27 +28,38 @@ function Task(name, content, category=0,date) {
 }
 
 export const renderChange = ()=>{
-    let archive = todo.filter(item => item.archive)
-    let archiveNone = todo.filter(item => !item.archive)
-    todo = [...archiveNone,...archive];
-    let virtualTasks = todo.map((item) => createItemTemplate(item))
-    virtualTasks.forEach( element => {document.getElementById('list-items').innerHTML += element;})
-    renderedTodo = document.querySelectorAll('.todo__item');
-    renderedTodo.forEach((element,index)=>{
-        element.querySelector('.edit').addEventListener('click',() => editTodo(index));
-        element.querySelector('.archive').addEventListener('click',() => archiveTodo(index));
-        element.querySelector('.delete').addEventListener('click',() => deleteTodo(index));
-        if(todo[index].edit) element.querySelector('.item-category').innerHTML = createSelectTemplate(categoriesTodo,todo[index].category);
-    })
+    try {
+        let archive = todo.filter(item => item.archive)
+        let archiveNone = todo.filter(item => !item.archive)
+        todo = [...archiveNone,...archive];
+        let virtualTasks = todo.map((item) => createItemTemplate(item))
+        virtualTasks.forEach( element => {document.getElementById('list-items').innerHTML += element;})
+        renderedTodo = document.querySelectorAll('.todo__item');
+        renderedTodo.forEach((element,index)=>{
+            element.querySelector('.edit').addEventListener('click',() => editTodo(index));
+            element.querySelector('.archive').addEventListener('click',() => archiveTodo(index));
+            element.querySelector('.delete').addEventListener('click',() => deleteTodo(index));
+            if(todo[index].edit) element.querySelector('.item-category').innerHTML = createSelectTemplate(categoriesTodo,todo[index].category);
+        })
+    }
+    catch (e) {
+        console.log("Error:",e)
+    }
+
 }
 
 export const CategoryRender = ()=>{
-    let virtualCategories = categoriesTodo.map((category,index) => {
-        let activeTodo = todo.filter(item => !item.archive && item.category === index)
-        let archiveTodo = todo.filter(item => item.archive && item.category === index)
-        return createCategoryItemTemplate(category,activeTodo.length,archiveTodo.length)
-    })
-    virtualCategories.forEach( element => {document.getElementById('list-category-items').innerHTML += element;})
+    try {
+        let virtualCategories = categoriesTodo.map((category,index) => {
+            let activeTodo = todo.filter(item => !item.archive && item.category === index)
+            let archiveTodo = todo.filter(item => item.archive && item.category === index)
+            return createCategoryItemTemplate(category,activeTodo.length,archiveTodo.length)
+        })
+        virtualCategories.forEach( element => {document.getElementById('list-category-items').innerHTML += element;})
+    }
+    catch (e) {
+        console.log("Error:",e)
+    }
 }
 
 export const addTask = (name,content,category,date)=>{
@@ -57,22 +68,39 @@ export const addTask = (name,content,category,date)=>{
 
 
 const editTodo = (id)=> {
-    if(todo[id].edit){
-        let name = renderedTodo[id].querySelector('.item-name').value;
-        let category = renderedTodo[id].querySelector('.item-category select').value;
-        let content = renderedTodo[id].querySelector('.item-content').value
-        todo = todo.map((item,index) => index === id ?  {...item,name: name,category:category,content: content} : item)
+    try {
+        if(todo[id].edit){
+            let name = renderedTodo[id].querySelector('.item-name').value;
+            let category = renderedTodo[id].querySelector('.item-category select').value;
+            let content = renderedTodo[id].querySelector('.item-content').value
+            todo = todo.map((item,index) => index === id ?  {...item,name: name,category:category,content: content} : item)
+        }
+        todo = todo.map((item,index) => index === id ?  {...item, edit: !item.edit } : item)
+        RenderTodo();
     }
-    todo = todo.map((item,index) => index === id ?  {...item, edit: !item.edit } : item)
-    RenderTodo();
+    catch (e) {
+        console.log("Error:",e)
+    }
+
 }
 
 const archiveTodo = (id)=> {
-    todo = todo.map((item,index) => index === id ?  {...item, archive: !item.archive } : item)
-    RenderTodo();
+    try {
+        todo = todo.map((item,index) => index === id ?  {...item, archive: !item.archive } : item)
+        RenderTodo();
+    }
+    catch (e) {
+        console.log("Error:",e)
+    }
+
 }
 
 const deleteTodo = (id) => {
-    todo = todo.filter((item,index) => index != id);
-    RenderTodo();
+    try {
+        todo = todo.filter((item,index) => index != id);
+        RenderTodo();
+    }
+    catch (e) {
+        console.log("Error:",e)
+    }
 }

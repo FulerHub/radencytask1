@@ -12,13 +12,19 @@ function initialRender() {
 }
 
 document.querySelector('.button-create').addEventListener('click', () => {
-    let name = document.querySelector('#name').value;
-    let content = document.querySelector('#content').value;
-    let category = document.querySelector('#category select').value;
-    let date = getDateFromText(content);
-    addTask(name,content,category,date);
-    RenderTodo()
-    clearModalForm();
+    try{
+        let name = document.querySelector('#name').value;
+        let content = document.querySelector('#content').value;
+        let category = document.querySelector('#category select').value;
+        let date = getDateFromText(content);
+        addTask(name,content,category,date);
+        RenderTodo()
+        clearModalForm();
+    }
+    catch (e) {
+        console.log("Error:",e)
+    }
+
 
 })
 
